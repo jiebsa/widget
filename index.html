@@ -9,9 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --gold: rgba(232,214,176,.92);
-      --gold-soft: rgba(232,214,176,.68);
-      --gold-faint: rgba(232,214,176,.28);
+      --gold: rgba(232,214,176,.94);
+      --gold-soft: rgba(232,214,176,.72);
+      --gold-faint: rgba(232,214,176,.32);
+      --gold-line: rgba(232,214,176,.66);
       --ivory: rgba(249,241,225,.86);
       --ivory-soft: rgba(249,241,225,.58);
     }
@@ -42,14 +43,66 @@
         radial-gradient(circle at 82% 72%,rgba(232,214,176,.10),transparent 28%);
     }
     @keyframes starBreath{0%,100%{opacity:.44;transform:translate3d(0,0,0)}50%{opacity:.78;transform:translate3d(6px,-4px,0)}}
+
+    /* 金色四角：這版不再用 currentColor，直接指定香檳金 */
     .corner{
-      position:absolute;z-index:4;width:32px;height:32px;border-color:var(--gold-soft);
-      filter:drop-shadow(0 0 8px rgba(232,214,176,.16));pointer-events:none;
+      position:absolute;z-index:7;width:34px;height:34px;pointer-events:none;
+      filter:drop-shadow(0 0 9px rgba(232,214,176,.20));
     }
-    .tl{top:24px;left:24px;border-top:5px solid;border-left:5px solid}
-    .tr{top:24px;right:24px;border-top:5px solid;border-right:5px solid}
-    .bl{bottom:24px;left:24px;border-bottom:5px solid;border-left:5px solid}
-    .br{bottom:24px;right:24px;border-bottom:5px solid;border-right:5px solid}
+    .tl{top:24px;left:24px;border-top:5px solid var(--gold-line);border-left:5px solid var(--gold-line)}
+    .tr{top:24px;right:24px;border-top:5px solid var(--gold-line);border-right:5px solid var(--gold-line)}
+    .bl{bottom:24px;left:24px;border-bottom:5px solid var(--gold-line);border-left:5px solid var(--gold-line)}
+    .br{bottom:24px;right:24px;border-bottom:5px solid var(--gold-line);border-right:5px solid var(--gold-line)}
+
+    /* 邊緣紋路 HUD */
+    .hud-frame{
+      position:absolute;inset:20px;z-index:3;pointer-events:none;color:var(--gold-line);
+    }
+    .edge-top-left,.edge-top-right,.edge-bottom-left,.edge-bottom-right{
+      position:absolute;height:1px;background:linear-gradient(90deg,var(--gold-line),rgba(232,214,176,.18),transparent);
+    }
+    .edge-top-left{top:18px;left:60px;width:210px}
+    .edge-top-right{top:18px;right:60px;width:260px;transform:scaleX(-1)}
+    .edge-bottom-left{bottom:18px;left:60px;width:235px}
+    .edge-bottom-right{bottom:18px;right:60px;width:280px;transform:scaleX(-1)}
+    .edge-left-mid,.edge-right-mid{
+      position:absolute;width:1px;height:150px;background:linear-gradient(180deg,transparent,rgba(232,214,176,.42),transparent);
+    }
+    .edge-left-mid{left:18px;top:205px}
+    .edge-right-mid{right:18px;top:185px}
+
+    .ticks{
+      position:absolute;left:58px;top:40px;display:flex;gap:9px;opacity:.72;
+    }
+    .ticks span{width:18px;height:2px;background:rgba(232,214,176,.52)}
+    .ticks span:nth-child(2){width:8px;opacity:.65}
+    .ticks span:nth-child(3){width:28px;opacity:.42}
+
+    .dots-top{
+      position:absolute;right:344px;top:35px;display:flex;gap:10px;opacity:.78;
+    }
+    .dots-top span{width:5px;height:5px;border-radius:50%;background:rgba(232,214,176,.58);box-shadow:0 0 8px rgba(232,214,176,.25)}
+    .dash-right{
+      position:absolute;right:40px;top:126px;width:58px;height:58px;border:1px solid rgba(232,214,176,.30);border-left-color:transparent;border-bottom-color:transparent;border-radius:50%;transform:rotate(18deg);
+    }
+    .mini-cross{
+      position:absolute;left:44px;bottom:112px;width:34px;height:34px;opacity:.58;
+    }
+    .mini-cross:before,.mini-cross:after{content:"";position:absolute;background:rgba(232,214,176,.48)}
+    .mini-cross:before{left:16px;top:0;width:1px;height:34px}
+    .mini-cross:after{left:0;top:16px;width:34px;height:1px}
+    .bottom-glyph{
+      position:absolute;right:112px;bottom:36px;display:flex;align-items:center;gap:9px;opacity:.60;
+    }
+    .bottom-glyph span:nth-child(1){width:42px;height:1px;background:rgba(232,214,176,.50)}
+    .bottom-glyph span:nth-child(2){width:7px;height:7px;border:1px solid rgba(232,214,176,.65);border-radius:50%}
+    .bottom-glyph span:nth-child(3){width:14px;height:1px;background:rgba(232,214,176,.36)}
+    .corner-dot{
+      position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(232,214,176,.68);box-shadow:0 0 10px rgba(232,214,176,.32);
+    }
+    .corner-dot.one{left:292px;top:35px}
+    .corner-dot.two{right:374px;bottom:36px}
+
     .top-info{
       position:absolute;right:34px;top:34px;z-index:5;text-align:right;
       font-family:"Cinzel",serif;font-size:11px;letter-spacing:.25em;line-height:2.02;
@@ -66,6 +119,7 @@
     .card-name{font-family:"Cinzel",serif;font-size:13px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:30px;font-weight:700}
     .quote{margin:0;font-family:"Noto Serif TC",serif;font-size:clamp(30px,3vw,54px);line-height:1.44;letter-spacing:.13em;font-weight:800;color:rgba(249,241,225,.78)}
     .author{margin-top:20px;font-family:"Noto Serif TC",serif;font-size:clamp(16px,1.1vw,22px);letter-spacing:.38em;font-weight:800;color:rgba(232,214,176,.55)}
+
     .right-panel{position:absolute;right:70px;bottom:46px;z-index:5;text-align:right;color:var(--gold);text-shadow:0 4px 18px rgba(0,0,0,.22)}
     .logo{margin-bottom:6px;font-family:"Noto Serif TC",serif;font-size:clamp(31px,2.5vw,48px);letter-spacing:.34em;font-weight:900;color:rgba(249,241,225,.86)}
     .sublogo{margin-bottom:18px;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.34em;font-weight:700;color:rgba(255,255,255,.42);text-transform:uppercase}
@@ -79,6 +133,7 @@
     .today{color:rgba(232,214,176,.95);position:relative;padding-right:18px}
     .today:after{content:"";position:absolute;right:0;top:50%;width:7px;height:7px;border-radius:50%;background:rgba(232,214,176,.78);box-shadow:0 0 12px rgba(232,214,176,.42);transform:translateY(-50%);animation:pulseDot 3.6s ease-in-out infinite}
     @keyframes pulseDot{0%,100%{opacity:.38;transform:translateY(-50%) scale(.92)}50%{opacity:.95;transform:translateY(-50%) scale(1.15)}}
+
     .orbit{position:absolute;right:34px;bottom:82px;z-index:3;width:min(24vw,340px);height:min(24vw,340px);pointer-events:none;opacity:.78}
     .orbit .arc{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(232,214,176,.16);clip-path:polygon(42% 54%,100% 54%,100% 100%,42% 100%)}
     .orbit .arc:before{content:"";position:absolute;inset:18%;border-radius:50%;border:1px solid rgba(232,214,176,.14)}
@@ -87,31 +142,48 @@
     .orbit .x02{position:absolute;right:16%;bottom:42%;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.30em;color:rgba(249,241,225,.50);font-weight:700}
     .orbit .dot{position:absolute;width:8px;height:8px;border-radius:50%;background:rgba(249,241,225,.92);box-shadow:0 0 12px rgba(249,241,225,.55)}
     .orbit .d1{right:18%;bottom:58%}.orbit .d2{right:6%;bottom:36%}.orbit .d3{right:38%;bottom:17%}
+
     .bottom-code{position:absolute;left:76px;bottom:40px;z-index:5;font-family:"Cinzel",serif;color:rgba(255,255,255,.42);font-size:13px;letter-spacing:.30em;line-height:1.8;font-weight:600;text-transform:uppercase}
     .bottom-code .hidden-name{color:rgba(232,214,176,.48);letter-spacing:.40em;font-size:12px}
     .side-label{position:absolute;left:18px;top:50%;z-index:4;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.30em;font-weight:700;color:rgba(255,255,255,.32);text-transform:uppercase}
+
     @media(max-width:980px){
       .frame{height:auto;aspect-ratio:16/9}.left-copy{top:38px;left:38px;max-width:52vw}.right-panel{right:34px;bottom:30px}.bottom-code{left:38px;bottom:26px}.top-info{display:none}.card-name{margin-bottom:18px}
     }
     @media(max-width:700px){
-      .frame{aspect-ratio:4/5;background-position:52% center}.left-copy{top:28px;left:24px;right:24px;max-width:none}.quote{font-size:clamp(23px,5vw,36px)}.author{margin-top:14px}.right-panel{left:24px;right:24px;bottom:30px;text-align:left}.days{justify-content:flex-start;gap:10px}.logo{letter-spacing:.20em}.orbit,.bottom-code,.side-label{display:none}.corner{width:24px;height:24px;border-width:4px!important}
+      .frame{aspect-ratio:4/5;background-position:52% center}.left-copy{top:28px;left:24px;right:24px;max-width:none}.quote{font-size:clamp(23px,5vw,36px)}.author{margin-top:14px}.right-panel{left:24px;right:24px;bottom:30px;text-align:left}.days{justify-content:flex-start;gap:10px}.logo{letter-spacing:.20em}.orbit,.bottom-code,.side-label,.hud-frame{display:none}.corner{width:24px;height:24px}.tl{border-top-width:4px;border-left-width:4px}.tr{border-top-width:4px;border-right-width:4px}.bl{border-bottom-width:4px;border-left-width:4px}.br{border-bottom-width:4px;border-right-width:4px}
     }
   </style>
 </head>
 <body>
   <main class="frame">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+
+    <div class="hud-frame" aria-hidden="true">
+      <div class="edge-top-left"></div><div class="edge-top-right"></div><div class="edge-bottom-left"></div><div class="edge-bottom-right"></div>
+      <div class="edge-left-mid"></div><div class="edge-right-mid"></div>
+      <div class="ticks"><span></span><span></span><span></span></div>
+      <div class="dots-top"><span></span><span></span><span></span></div>
+      <div class="dash-right"></div>
+      <div class="mini-cross"></div>
+      <div class="bottom-glyph"><span></span><span></span><span></span></div>
+      <span class="corner-dot one"></span><span class="corner-dot two"></span>
+    </div>
+
     <section class="top-info"><div class="online">SYSTEM ONLINE</div><div>Memory Restored</div><div>Signal Stable</div><div>Sync · 100</div></section>
     <section class="left-copy"><div class="terminal">Archive Terminal</div><div class="card-name">Up Close</div><p class="quote">「只要我相信她存在，<br>她一直存在。」</p><div class="author">— 夏以晝</div></section>
+
     <section class="right-panel">
       <div class="logo">藏 晝 閣</div><div class="sublogo">ZANG ZHOU ARCHIVE</div><div class="come-back">When U Come Back</div><div class="label">與夏以晝重逢</div>
       <div class="days"><span class="prefix">第</span><span class="day-num" id="days">—</span><span class="suffix">日</span></div>
       <div class="date"><span id="startDate">2025.01.22</span> ─ <span class="today" id="todayDate">TODAY</span></div>
     </section>
+
     <section class="orbit" aria-hidden="true"><div class="arc"></div><div class="mark">Signal Found</div><div class="x02">X-02</div><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span></section>
     <section class="bottom-code"><div>Remote Fleet</div><div class="hidden-name">Caleb · 100</div></section>
     <div class="side-label">Classified</div>
   </main>
+
   <script>
     const startDate = new Date("2025-01-22T00:00:00+08:00");
     function formatDate(date){
@@ -124,7 +196,7 @@
       const now=new Date();
       const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
       const start=new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate());
-      const diff=Math.floor((today-start)/86400000);
+      const diff=Math.floor((today-start)/86400000)+1;
       document.getElementById("days").textContent=diff;
       document.getElementById("startDate").textContent=formatDate(start);
       document.getElementById("todayDate").textContent="TODAY";
