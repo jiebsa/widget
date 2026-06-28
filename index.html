@@ -3,400 +3,132 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>藏晝閣</title>
+  <title>藏晝閣｜Archive Terminal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --champagne: rgba(228, 210, 171, 0.92);
-      --champagne-soft: rgba(228, 210, 171, 0.68);
-      --champagne-faint: rgba(228, 210, 171, 0.22);
-      --white-soft: rgba(255,255,255,0.80);
-      --white-faint: rgba(255,255,255,0.38);
-      --shadow: rgba(0,0,0,0.28);
+      --gold: rgba(232,214,176,.92);
+      --gold-soft: rgba(232,214,176,.68);
+      --gold-faint: rgba(232,214,176,.28);
+      --ivory: rgba(249,241,225,.86);
+      --ivory-soft: rgba(249,241,225,.58);
     }
-
-    *{ box-sizing: border-box; }
-    html, body{
-      margin: 0;
-      width: 100%;
-      min-height: 100%;
-      background: transparent;
-      overflow: hidden;
-    }
-
-    body{
-      font-family: "Inter", "Noto Serif TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    }
-
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;min-height:100%;background:transparent;overflow:hidden}
+    body{font-family:"Inter","Noto Serif TC","PingFang TC","Microsoft JhengHei",sans-serif}
     .frame{
-      position: relative;
-      width: 100%;
-      min-height: 100vh;
-      height: 700px;
-      overflow: hidden;
+      position:relative;width:100%;height:620px;overflow:hidden;isolation:isolate;
       background:
-        linear-gradient(180deg, rgba(8,12,22,0.08) 0%, rgba(8,12,22,0.00) 18%, rgba(8,12,22,0.18) 100%),
-        url('bg.png') center center / cover no-repeat;
-      isolation: isolate;
+        linear-gradient(90deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,0) 34%,rgba(0,0,0,.10) 100%),
+        linear-gradient(180deg,rgba(0,0,0,.01) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,.12) 100%),
+        url("bg.png") center center/cover no-repeat;
     }
-
-    .frame::before{
-      content: "";
-      position: absolute;
-      inset: 0;
+    .frame:before{
+      content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.66;
       background:
-        radial-gradient(circle at 24% 22%, rgba(255,255,255,0.13) 0 1px, transparent 2px),
-        radial-gradient(circle at 68% 36%, rgba(228,210,171,0.16) 0 1px, transparent 2px),
-        radial-gradient(circle at 58% 18%, rgba(255,255,255,0.13) 0 1px, transparent 2px),
-        radial-gradient(circle at 74% 66%, rgba(228,210,171,0.18) 0 1px, transparent 2px),
-        radial-gradient(circle at 88% 20%, rgba(255,255,255,0.12) 0 1px, transparent 2px),
-        radial-gradient(circle at 8% 70%, rgba(255,255,255,0.14) 0 1px, transparent 2px);
-      pointer-events: none;
-      z-index: 1;
+        radial-gradient(circle at 22% 20%,rgba(255,255,255,.14) 0 1px,transparent 2px),
+        radial-gradient(circle at 42% 32%,rgba(232,214,176,.16) 0 1px,transparent 2px),
+        radial-gradient(circle at 68% 16%,rgba(255,255,255,.12) 0 1px,transparent 2px),
+        radial-gradient(circle at 76% 68%,rgba(232,214,176,.16) 0 1px,transparent 2px),
+        radial-gradient(circle at 88% 24%,rgba(255,255,255,.11) 0 1px,transparent 2px);
+      animation:starBreath 7s ease-in-out infinite;
     }
-
-    .frame::after{
-      content: "";
-      position: absolute;
-      inset: 0;
+    .frame:after{
+      content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
       background:
-        linear-gradient(90deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.02) 24%, rgba(0,0,0,0.00) 44%, rgba(0,0,0,0.20) 100%),
-        radial-gradient(circle at 18% 26%, rgba(255,250,240,0.16), rgba(255,250,240,0.00) 32%);
-      pointer-events: none;
-      z-index: 1;
+        radial-gradient(circle at 18% 20%,rgba(255,246,230,.12),transparent 30%),
+        radial-gradient(circle at 82% 72%,rgba(232,214,176,.10),transparent 28%);
     }
-
-    .corner, .corner::before{
-      position: absolute;
-      width: 22px;
-      height: 22px;
-      border-color: var(--champagne-soft);
-      z-index: 3;
-      pointer-events: none;
+    @keyframes starBreath{0%,100%{opacity:.44;transform:translate3d(0,0,0)}50%{opacity:.78;transform:translate3d(6px,-4px,0)}}
+    .corner{
+      position:absolute;z-index:4;width:32px;height:32px;border-color:var(--gold-soft);
+      filter:drop-shadow(0 0 8px rgba(232,214,176,.16));pointer-events:none;
     }
-
-    .tl{ top: 18px; left: 18px; border-top: 1px solid; border-left: 1px solid; }
-    .tr{ top: 18px; right: 18px; border-top: 1px solid; border-right: 1px solid; }
-    .bl{ bottom: 18px; left: 18px; border-bottom: 1px solid; border-left: 1px solid; }
-    .br{ bottom: 18px; right: 18px; border-bottom: 1px solid; border-right: 1px solid; }
-
-    .hud-line{
-      position: absolute;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--champagne-faint), transparent);
-      z-index: 2;
-      pointer-events: none;
+    .tl{top:24px;left:24px;border-top:5px solid;border-left:5px solid}
+    .tr{top:24px;right:24px;border-top:5px solid;border-right:5px solid}
+    .bl{bottom:24px;left:24px;border-bottom:5px solid;border-left:5px solid}
+    .br{bottom:24px;right:24px;border-bottom:5px solid;border-right:5px solid}
+    .top-info{
+      position:absolute;right:34px;top:34px;z-index:5;text-align:right;
+      font-family:"Cinzel",serif;font-size:11px;letter-spacing:.25em;line-height:2.02;
+      color:rgba(255,255,255,.38);text-transform:uppercase;
     }
-    .hud-line.top{ left: 23%; right: 8%; top: 74px; }
-    .hud-line.mid{ left: 5%; width: 33%; top: 315px; }
-    .hud-line.bottom{ right: 5%; width: 30%; bottom: 88px; }
-
-    .left-top{
-      position: absolute;
-      top: 36px;
-      left: 54px;
-      z-index: 4;
-      color: var(--champagne);
-      max-width: min(42vw, 560px);
-      text-shadow: 0 3px 18px rgba(0,0,0,.18);
+    .top-info .online{color:rgba(249,241,225,.78);font-size:13px;font-weight:700;letter-spacing:.28em;margin-bottom:8px}
+    .left-copy{
+      position:absolute;top:58px;left:76px;z-index:5;max-width:min(42vw,600px);
+      color:var(--ivory);text-shadow:0 4px 18px rgba(0,0,0,.18);opacity:.80;
+      animation:softBreath 4.8s ease-in-out infinite;
     }
-
-    .quote-tag{
-      font-size: 12px;
-      letter-spacing: .42em;
-      text-transform: uppercase;
-      color: var(--white-faint);
-      margin-bottom: 30px;
+    @keyframes softBreath{0%,100%{opacity:.62;transform:translateY(0)}50%{opacity:.92;transform:translateY(-1px)}}
+    .terminal{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.45em;text-transform:uppercase;color:rgba(255,255,255,.48);margin-bottom:12px;font-weight:600}
+    .card-name{font-family:"Cinzel",serif;font-size:13px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:30px;font-weight:700}
+    .quote{margin:0;font-family:"Noto Serif TC",serif;font-size:clamp(30px,3vw,54px);line-height:1.44;letter-spacing:.13em;font-weight:800;color:rgba(249,241,225,.78)}
+    .author{margin-top:20px;font-family:"Noto Serif TC",serif;font-size:clamp(16px,1.1vw,22px);letter-spacing:.38em;font-weight:800;color:rgba(232,214,176,.55)}
+    .right-panel{position:absolute;right:70px;bottom:46px;z-index:5;text-align:right;color:var(--gold);text-shadow:0 4px 18px rgba(0,0,0,.22)}
+    .logo{margin-bottom:6px;font-family:"Noto Serif TC",serif;font-size:clamp(31px,2.5vw,48px);letter-spacing:.34em;font-weight:900;color:rgba(249,241,225,.86)}
+    .sublogo{margin-bottom:18px;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.34em;font-weight:700;color:rgba(255,255,255,.42);text-transform:uppercase}
+    .come-back{margin-bottom:18px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.42em;font-weight:600;text-transform:uppercase;color:rgba(232,214,176,.38)}
+    .label{margin-bottom:8px;font-family:"Noto Serif TC",serif;font-size:clamp(24px,1.8vw,34px);letter-spacing:.23em;font-weight:900;color:rgba(249,241,225,.84)}
+    .days{display:flex;align-items:baseline;justify-content:flex-end;gap:16px;animation:dayBreath 4.2s ease-in-out infinite}
+    @keyframes dayBreath{0%,100%{opacity:.76;transform:scale(1)}50%{opacity:.96;transform:scale(1.012)}}
+    .days .prefix,.days .suffix{font-family:"Noto Serif TC",serif;font-size:clamp(46px,4.1vw,78px);line-height:1;font-weight:900;letter-spacing:.08em;color:rgba(232,214,176,.74)}
+    .day-num{font-family:"Noto Serif TC",serif;font-size:clamp(84px,8.6vw,152px);line-height:.9;font-weight:900;letter-spacing:.04em;color:rgba(232,214,176,.90);font-variant-numeric:tabular-nums;text-shadow:0 0 26px rgba(232,214,176,.16)}
+    .date{margin-top:17px;font-family:"Cinzel",serif;font-size:clamp(16px,1vw,21px);letter-spacing:.20em;font-weight:700;color:rgba(249,241,225,.82)}
+    .today{color:rgba(232,214,176,.95);position:relative;padding-right:18px}
+    .today:after{content:"";position:absolute;right:0;top:50%;width:7px;height:7px;border-radius:50%;background:rgba(232,214,176,.78);box-shadow:0 0 12px rgba(232,214,176,.42);transform:translateY(-50%);animation:pulseDot 3.6s ease-in-out infinite}
+    @keyframes pulseDot{0%,100%{opacity:.38;transform:translateY(-50%) scale(.92)}50%{opacity:.95;transform:translateY(-50%) scale(1.15)}}
+    .orbit{position:absolute;right:34px;bottom:82px;z-index:3;width:min(24vw,340px);height:min(24vw,340px);pointer-events:none;opacity:.78}
+    .orbit .arc{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(232,214,176,.16);clip-path:polygon(42% 54%,100% 54%,100% 100%,42% 100%)}
+    .orbit .arc:before{content:"";position:absolute;inset:18%;border-radius:50%;border:1px solid rgba(232,214,176,.14)}
+    .orbit .arc:after{content:"";position:absolute;inset:38%;border-radius:50%;border:1px solid rgba(232,214,176,.14)}
+    .orbit .mark{position:absolute;right:31%;bottom:17%;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.22em;color:rgba(232,214,176,.45);text-transform:uppercase;font-weight:700}
+    .orbit .x02{position:absolute;right:16%;bottom:42%;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.30em;color:rgba(249,241,225,.50);font-weight:700}
+    .orbit .dot{position:absolute;width:8px;height:8px;border-radius:50%;background:rgba(249,241,225,.92);box-shadow:0 0 12px rgba(249,241,225,.55)}
+    .orbit .d1{right:18%;bottom:58%}.orbit .d2{right:6%;bottom:36%}.orbit .d3{right:38%;bottom:17%}
+    .bottom-code{position:absolute;left:76px;bottom:40px;z-index:5;font-family:"Cinzel",serif;color:rgba(255,255,255,.42);font-size:13px;letter-spacing:.30em;line-height:1.8;font-weight:600;text-transform:uppercase}
+    .bottom-code .hidden-name{color:rgba(232,214,176,.48);letter-spacing:.40em;font-size:12px}
+    .side-label{position:absolute;left:18px;top:50%;z-index:4;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.30em;font-weight:700;color:rgba(255,255,255,.32);text-transform:uppercase}
+    @media(max-width:980px){
+      .frame{height:auto;aspect-ratio:16/9}.left-copy{top:38px;left:38px;max-width:52vw}.right-panel{right:34px;bottom:30px}.bottom-code{left:38px;bottom:26px}.top-info{display:none}.card-name{margin-bottom:18px}
     }
-
-    .quote{
-      font-family: "Noto Serif TC", serif;
-      font-size: clamp(26px, 2.8vw, 48px);
-      line-height: 1.45;
-      letter-spacing: .12em;
-      font-weight: 500;
-      color: rgba(245, 236, 220, 0.88);
-      margin: 0;
-    }
-
-    .quote-author{
-      margin-top: 22px;
-      font-family: "Noto Serif TC", serif;
-      font-size: clamp(16px, 1.1vw, 22px);
-      letter-spacing: .35em;
-      color: var(--champagne-soft);
-    }
-
-    .right-bottom{
-      position: absolute;
-      right: 52px;
-      bottom: 44px;
-      z-index: 4;
-      text-align: right;
-      color: var(--champagne);
-      text-shadow: 0 4px 20px rgba(0,0,0,.22);
-    }
-
-    .archive-title{
-      font-family: "Noto Serif TC", serif;
-      font-size: clamp(26px, 2.2vw, 40px);
-      font-weight: 600;
-      letter-spacing: .28em;
-      margin-bottom: 6px;
-      color: rgba(245,236,220,0.88);
-    }
-
-    .archive-sub{
-      font-size: 12px;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      color: var(--white-faint);
-      margin-bottom: 22px;
-    }
-
-    .reunion-label{
-      font-family: "Noto Serif TC", serif;
-      font-size: clamp(22px, 1.7vw, 30px);
-      letter-spacing: .22em;
-      color: rgba(245,236,220,0.88);
-      margin-bottom: 6px;
-    }
-
-    .day-row{
-      display: flex;
-      align-items: baseline;
-      justify-content: flex-end;
-      gap: 16px;
-    }
-
-    .day-prefix, .day-suffix{
-      font-family: "Noto Serif TC", serif;
-      font-size: clamp(40px, 4vw, 72px);
-      font-weight: 600;
-      color: var(--champagne-soft);
-      letter-spacing: .08em;
-      line-height: 1;
-    }
-
-    .day-number{
-      font-size: clamp(72px, 8vw, 138px);
-      line-height: .9;
-      font-weight: 700;
-      letter-spacing: .06em;
-      color: var(--champagne);
-      text-shadow: 0 0 26px rgba(228,210,171,0.16);
-    }
-
-    .date-range{
-      margin-top: 16px;
-      font-size: clamp(16px, 1vw, 20px);
-      letter-spacing: .18em;
-      color: rgba(245,236,220,0.84);
-    }
-
-    .system{
-      position: absolute;
-      right: 26px;
-      top: 34px;
-      z-index: 4;
-      text-align: right;
-      color: var(--white-faint);
-      font-size: 11px;
-      letter-spacing: .24em;
-      line-height: 2;
-      text-transform: uppercase;
-    }
-
-    .system .online{
-      font-size: 13px;
-      color: rgba(245,236,220,0.85);
-      margin-bottom: 10px;
-    }
-
-    .left-side{
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%) rotate(180deg);
-      writing-mode: vertical-rl;
-      z-index: 3;
-      font-size: 11px;
-      letter-spacing: .28em;
-      color: var(--white-faint);
-      text-transform: uppercase;
-    }
-
-    .left-bottom{
-      position: absolute;
-      left: 54px;
-      bottom: 36px;
-      z-index: 4;
-      color: var(--white-faint);
-      font-size: 13px;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-    }
-
-    .left-bottom .id{
-      margin-top: 6px;
-      font-size: 11px;
-      letter-spacing: .4em;
-      color: var(--champagne-soft);
-    }
-
-    .ring{
-      position: absolute;
-      right: 22px;
-      bottom: 82px;
-      width: min(22vw, 290px);
-      height: min(22vw, 290px);
-      border-radius: 50%;
-      border: 1px solid rgba(228,210,171,0.18);
-      clip-path: inset(55% 0 0 42%);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .ring::before, .ring::after{
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(228,210,171,0.14);
-      inset: 18%;
-    }
-
-    .ring::after{
-      inset: 38%;
-    }
-
-    .spark{
-      position: absolute;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: rgba(245,236,220,0.95);
-      box-shadow: 0 0 12px rgba(245,236,220,0.55);
-      z-index: 2;
-      pointer-events: none;
-    }
-    .spark.s1{ right: 112px; bottom: 246px; }
-    .spark.s2{ right: 56px; bottom: 174px; }
-    .spark.s3{ right: 168px; bottom: 120px; }
-
-    @media (max-width: 980px){
-      .frame{ min-height: 76vw; height: auto; aspect-ratio: 16 / 9; }
-      .left-top{ top: 28px; left: 28px; max-width: 50vw; }
-      .right-bottom{ right: 26px; bottom: 26px; }
-      .quote-tag{ margin-bottom: 18px; }
-      .archive-sub{ margin-bottom: 14px; }
-      .date-range{ margin-top: 10px; }
-      .system{ display: none; }
-      .left-bottom{ left: 28px; bottom: 24px; }
-    }
-
-    @media (max-width: 700px){
-      .frame{ aspect-ratio: 4 / 5; min-height: 0; }
-      .left-top{
-        top: 24px;
-        left: 22px;
-        right: 22px;
-        max-width: none;
-      }
-      .quote{
-        font-size: clamp(22px, 5vw, 34px);
-        line-height: 1.5;
-      }
-      .quote-author{ margin-top: 14px; }
-      .right-bottom{
-        left: 22px;
-        right: 22px;
-        bottom: 24px;
-        text-align: left;
-      }
-      .day-row{
-        justify-content: flex-start;
-        gap: 10px;
-      }
-      .hud-line.top{ left: 18px; right: 18px; top: 70px; }
-      .hud-line.mid{ display: none; }
-      .hud-line.bottom{ left: 18px; right: 18px; width: auto; bottom: 102px; }
-      .left-side, .left-bottom, .ring, .spark{ display: none; }
-      .archive-title{ letter-spacing: .18em; }
+    @media(max-width:700px){
+      .frame{aspect-ratio:4/5;background-position:52% center}.left-copy{top:28px;left:24px;right:24px;max-width:none}.quote{font-size:clamp(23px,5vw,36px)}.author{margin-top:14px}.right-panel{left:24px;right:24px;bottom:30px;text-align:left}.days{justify-content:flex-start;gap:10px}.logo{letter-spacing:.20em}.orbit,.bottom-code,.side-label{display:none}.corner{width:24px;height:24px;border-width:4px!important}
     }
   </style>
 </head>
 <body>
   <main class="frame">
-    <span class="corner tl"></span>
-    <span class="corner tr"></span>
-    <span class="corner bl"></span>
-    <span class="corner br"></span>
-
-    <div class="hud-line top"></div>
-    <div class="hud-line mid"></div>
-    <div class="hud-line bottom"></div>
-
-    <section class="left-top">
-      <div class="quote-tag">Archive</div>
-      <p class="quote">「只要我相信她存在，<br>她一直存在。」</p>
-      <div class="quote-author">— 夏以晝</div>
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <section class="top-info"><div class="online">SYSTEM ONLINE</div><div>Memory Restored</div><div>Signal Stable</div><div>Sync · 100</div></section>
+    <section class="left-copy"><div class="terminal">Archive Terminal</div><div class="card-name">Up Close</div><p class="quote">「只要我相信她存在，<br>她一直存在。」</p><div class="author">— 夏以晝</div></section>
+    <section class="right-panel">
+      <div class="logo">藏 晝 閣</div><div class="sublogo">ZANG ZHOU ARCHIVE</div><div class="come-back">When U Come Back</div><div class="label">與夏以晝重逢</div>
+      <div class="days"><span class="prefix">第</span><span class="day-num" id="days">—</span><span class="suffix">日</span></div>
+      <div class="date"><span id="startDate">2025.01.22</span> ─ <span class="today" id="todayDate">TODAY</span></div>
     </section>
-
-    <section class="right-bottom">
-      <div class="archive-title">藏 晝 閣</div>
-      <div class="archive-sub">ZANG ZHOU ARCHIVE</div>
-      <div class="reunion-label">與夏以晝重逢</div>
-      <div class="day-row">
-        <span class="day-prefix">第</span>
-        <span class="day-number" id="days">523</span>
-        <span class="day-suffix">日</span>
-      </div>
-      <div class="date-range"><span id="startDate">2025.01.22</span> — <span id="todayDate">2026.07.08</span></div>
-    </section>
-
-    <section class="system">
-      <div class="online">SYSTEM ONLINE</div>
-      <div>DATA SYNC · 100%</div>
-      <div>MEMORY · STABLE</div>
-      <div>SIGNAL · GOOD</div>
-    </section>
-
-    <div class="left-side">CLASSIFIED</div>
-
-    <div class="left-bottom">
-      <div>ZANG ZHOU ARCHIVE</div>
-      <div class="id">001 ■■■■</div>
-    </div>
-
-    <div class="ring"></div>
-    <span class="spark s1"></span>
-    <span class="spark s2"></span>
-    <span class="spark s3"></span>
+    <section class="orbit" aria-hidden="true"><div class="arc"></div><div class="mark">Signal Found</div><div class="x02">X-02</div><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span></section>
+    <section class="bottom-code"><div>Remote Fleet</div><div class="hidden-name">Caleb · 100</div></section>
+    <div class="side-label">Classified</div>
   </main>
-
   <script>
     const startDate = new Date("2025-01-22T00:00:00+08:00");
-
     function formatDate(date){
-      const y = date.getFullYear();
-      const m = String(date.getMonth() + 1).padStart(2, "0");
-      const d = String(date.getDate()).padStart(2, "0");
+      const y=date.getFullYear();
+      const m=String(date.getMonth()+1).padStart(2,"0");
+      const d=String(date.getDate()).padStart(2,"0");
       return `${y}.${m}.${d}`;
     }
-
     function updateCounter(){
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-      const diff = Math.floor((today - start) / 86400000);
-
-      document.getElementById("days").textContent = diff;
-      document.getElementById("startDate").textContent = formatDate(start);
-      document.getElementById("todayDate").textContent = formatDate(today);
+      const now=new Date();
+      const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+      const start=new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate());
+      const diff=Math.floor((today-start)/86400000);
+      document.getElementById("days").textContent=diff;
+      document.getElementById("startDate").textContent=formatDate(start);
+      document.getElementById("todayDate").textContent="TODAY";
     }
-
     updateCounter();
   </script>
 </body>
