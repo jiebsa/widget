@@ -1,207 +1,403 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>藏晝閣｜重逢日誌</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>藏晝閣</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --gold: #d8b982;
-      --gold-soft: rgba(216, 185, 130, .55);
-      --gold-faint: rgba(216, 185, 130, .18);
-      --text: #f5efe4;
-      --muted: rgba(245, 239, 228, .68);
-      --bg1: #0c1018;
-      --bg2: #17110d;
+    :root{
+      --champagne: rgba(228, 210, 171, 0.92);
+      --champagne-soft: rgba(228, 210, 171, 0.68);
+      --champagne-faint: rgba(228, 210, 171, 0.22);
+      --white-soft: rgba(255,255,255,0.80);
+      --white-faint: rgba(255,255,255,0.38);
+      --shadow: rgba(0,0,0,0.28);
     }
 
-    * { box-sizing: border-box; }
-
-    html, body {
+    *{ box-sizing: border-box; }
+    html, body{
       margin: 0;
       width: 100%;
       min-height: 100%;
       background: transparent;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Serif TC", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-      color: var(--text);
       overflow: hidden;
     }
 
-    .wrap {
-      width: 100%;
-      min-height: 260px;
-      display: grid;
-      place-items: center;
-      padding: 18px;
+    body{
+      font-family: "Inter", "Noto Serif TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
     }
 
-    .card {
+    .frame{
       position: relative;
-      width: min(760px, 100%);
-      min-height: 236px;
-      padding: 30px 24px 28px;
-      text-align: center;
-      border: 1px solid var(--gold-faint);
-      border-radius: 24px;
+      width: 100%;
+      min-height: 100vh;
+      height: 100vh;
       overflow: hidden;
       background:
-        radial-gradient(circle at 50% 0%, rgba(216,185,130,.20), transparent 34%),
-        radial-gradient(circle at 16% 18%, rgba(117,154,255,.13), transparent 30%),
-        linear-gradient(135deg, rgba(12,16,24,.94), rgba(23,17,13,.92));
-      box-shadow:
-        0 18px 44px rgba(0,0,0,.28),
-        inset 0 0 40px rgba(216,185,130,.04);
+        linear-gradient(180deg, rgba(8,12,22,0.08) 0%, rgba(8,12,22,0.00) 18%, rgba(8,12,22,0.18) 100%),
+        url('bg.png') center center / cover no-repeat;
+      isolation: isolate;
     }
 
-    .card::before {
+    .frame::before{
       content: "";
       position: absolute;
-      inset: -80px;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,.42) 0 1px, transparent 1.5px),
-        radial-gradient(circle, rgba(216,185,130,.45) 0 1px, transparent 1.4px);
-      background-size: 88px 88px, 132px 132px;
-      background-position: 0 0, 28px 42px;
-      opacity: .20;
-      animation: drift 26s linear infinite;
+      inset: 0;
+      background:
+        radial-gradient(circle at 24% 22%, rgba(255,255,255,0.13) 0 1px, transparent 2px),
+        radial-gradient(circle at 68% 36%, rgba(228,210,171,0.16) 0 1px, transparent 2px),
+        radial-gradient(circle at 58% 18%, rgba(255,255,255,0.13) 0 1px, transparent 2px),
+        radial-gradient(circle at 74% 66%, rgba(228,210,171,0.18) 0 1px, transparent 2px),
+        radial-gradient(circle at 88% 20%, rgba(255,255,255,0.12) 0 1px, transparent 2px),
+        radial-gradient(circle at 8% 70%, rgba(255,255,255,0.14) 0 1px, transparent 2px);
       pointer-events: none;
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border: 1px solid rgba(216,185,130,.16);
-      border-radius: 18px;
-      pointer-events: none;
-    }
-
-    @keyframes drift {
-      from { transform: translate3d(0,0,0); }
-      to { transform: translate3d(44px, -36px,0); }
-    }
-
-    .content {
-      position: relative;
       z-index: 1;
     }
 
-    .kicker {
-      margin: 0 0 8px;
+    .frame::after{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.02) 24%, rgba(0,0,0,0.00) 44%, rgba(0,0,0,0.20) 100%),
+        radial-gradient(circle at 18% 26%, rgba(255,250,240,0.16), rgba(255,250,240,0.00) 32%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .corner, .corner::before{
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-color: var(--champagne-soft);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .tl{ top: 18px; left: 18px; border-top: 1px solid; border-left: 1px solid; }
+    .tr{ top: 18px; right: 18px; border-top: 1px solid; border-right: 1px solid; }
+    .bl{ bottom: 18px; left: 18px; border-bottom: 1px solid; border-left: 1px solid; }
+    .br{ bottom: 18px; right: 18px; border-bottom: 1px solid; border-right: 1px solid; }
+
+    .hud-line{
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--champagne-faint), transparent);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .hud-line.top{ left: 23%; right: 8%; top: 74px; }
+    .hud-line.mid{ left: 5%; width: 33%; top: 315px; }
+    .hud-line.bottom{ right: 5%; width: 30%; bottom: 88px; }
+
+    .left-top{
+      position: absolute;
+      top: 36px;
+      left: 54px;
+      z-index: 4;
+      color: var(--champagne);
+      max-width: min(42vw, 560px);
+      text-shadow: 0 3px 18px rgba(0,0,0,.18);
+    }
+
+    .quote-tag{
+      font-size: 12px;
+      letter-spacing: .42em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+      margin-bottom: 30px;
+    }
+
+    .quote{
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(26px, 2.8vw, 48px);
+      line-height: 1.45;
+      letter-spacing: .12em;
+      font-weight: 500;
+      color: rgba(245, 236, 220, 0.88);
+      margin: 0;
+    }
+
+    .quote-author{
+      margin-top: 22px;
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(16px, 1.1vw, 22px);
+      letter-spacing: .35em;
+      color: var(--champagne-soft);
+    }
+
+    .right-bottom{
+      position: absolute;
+      right: 52px;
+      bottom: 44px;
+      z-index: 4;
+      text-align: right;
+      color: var(--champagne);
+      text-shadow: 0 4px 20px rgba(0,0,0,.22);
+    }
+
+    .archive-title{
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(26px, 2.2vw, 40px);
+      font-weight: 600;
+      letter-spacing: .28em;
+      margin-bottom: 6px;
+      color: rgba(245,236,220,0.88);
+    }
+
+    .archive-sub{
+      font-size: 12px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--white-faint);
+      margin-bottom: 22px;
+    }
+
+    .reunion-label{
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(22px, 1.7vw, 30px);
+      letter-spacing: .22em;
+      color: rgba(245,236,220,0.88);
+      margin-bottom: 6px;
+    }
+
+    .day-row{
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-end;
+      gap: 16px;
+    }
+
+    .day-prefix, .day-suffix{
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(40px, 4vw, 72px);
+      font-weight: 600;
+      color: var(--champagne-soft);
+      letter-spacing: .08em;
+      line-height: 1;
+    }
+
+    .day-number{
+      font-size: clamp(72px, 8vw, 138px);
+      line-height: .9;
+      font-weight: 700;
+      letter-spacing: .06em;
+      color: var(--champagne);
+      text-shadow: 0 0 26px rgba(228,210,171,0.16);
+    }
+
+    .date-range{
+      margin-top: 16px;
+      font-size: clamp(16px, 1vw, 20px);
+      letter-spacing: .18em;
+      color: rgba(245,236,220,0.84);
+    }
+
+    .system{
+      position: absolute;
+      right: 26px;
+      top: 34px;
+      z-index: 4;
+      text-align: right;
+      color: var(--white-faint);
       font-size: 11px;
-      letter-spacing: .48em;
-      color: var(--muted);
+      letter-spacing: .24em;
+      line-height: 2;
       text-transform: uppercase;
     }
 
-    h1 {
-      margin: 0;
-      font-size: clamp(28px, 6vw, 44px);
-      font-weight: 600;
-      letter-spacing: .26em;
-      color: var(--text);
-      text-shadow: 0 0 18px rgba(216,185,130,.22);
+    .system .online{
+      font-size: 13px;
+      color: rgba(245,236,220,0.85);
+      margin-bottom: 10px;
     }
 
-    .line {
-      width: min(280px, 62%);
-      height: 1px;
-      margin: 16px auto 18px;
-      background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
-    }
-
-    .label {
-      font-size: 14px;
-      letter-spacing: .18em;
-      color: var(--muted);
-      margin-bottom: 7px;
-    }
-
-    .days {
-      font-size: clamp(46px, 11vw, 82px);
-      line-height: .95;
-      font-weight: 700;
-      letter-spacing: .05em;
-      color: var(--gold);
-      text-shadow: 0 0 24px rgba(216,185,130,.28);
-      animation: breathe 3.6s ease-in-out infinite;
-    }
-
-    @keyframes breathe {
-      0%, 100% { opacity: .90; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.018); }
-    }
-
-    .date {
-      margin-top: 10px;
-      font-size: 12px;
-      letter-spacing: .12em;
-      color: rgba(245,239,228,.56);
-    }
-
-    .quote {
-      max-width: 560px;
-      margin: 18px auto 0;
-      font-size: clamp(13px, 3.4vw, 15px);
-      line-height: 1.9;
-      letter-spacing: .08em;
-      color: rgba(245,239,228,.80);
-    }
-
-    .corner {
+    .left-side{
       position: absolute;
-      width: 18px;
-      height: 18px;
-      border-color: rgba(216,185,130,.55);
-      z-index: 2;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%) rotate(180deg);
+      writing-mode: vertical-rl;
+      z-index: 3;
+      font-size: 11px;
+      letter-spacing: .28em;
+      color: var(--white-faint);
+      text-transform: uppercase;
     }
-    .tl { top: 17px; left: 17px; border-top: 1px solid; border-left: 1px solid; }
-    .tr { top: 17px; right: 17px; border-top: 1px solid; border-right: 1px solid; }
-    .bl { bottom: 17px; left: 17px; border-bottom: 1px solid; border-left: 1px solid; }
-    .br { bottom: 17px; right: 17px; border-bottom: 1px solid; border-right: 1px solid; }
 
-    @media (max-width: 520px) {
-      .wrap { min-height: 240px; padding: 10px; }
-      .card { min-height: 220px; border-radius: 20px; padding: 26px 18px; }
-      h1 { letter-spacing: .20em; }
-      .quote { margin-top: 14px; }
+    .left-bottom{
+      position: absolute;
+      left: 54px;
+      bottom: 36px;
+      z-index: 4;
+      color: var(--white-faint);
+      font-size: 13px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+
+    .left-bottom .id{
+      margin-top: 6px;
+      font-size: 11px;
+      letter-spacing: .4em;
+      color: var(--champagne-soft);
+    }
+
+    .ring{
+      position: absolute;
+      right: 22px;
+      bottom: 82px;
+      width: min(22vw, 290px);
+      height: min(22vw, 290px);
+      border-radius: 50%;
+      border: 1px solid rgba(228,210,171,0.18);
+      clip-path: inset(55% 0 0 42%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .ring::before, .ring::after{
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(228,210,171,0.14);
+      inset: 18%;
+    }
+
+    .ring::after{
+      inset: 38%;
+    }
+
+    .spark{
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(245,236,220,0.95);
+      box-shadow: 0 0 12px rgba(245,236,220,0.55);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .spark.s1{ right: 112px; bottom: 246px; }
+    .spark.s2{ right: 56px; bottom: 174px; }
+    .spark.s3{ right: 168px; bottom: 120px; }
+
+    @media (max-width: 980px){
+      .frame{ min-height: 76vw; height: auto; aspect-ratio: 16 / 9; }
+      .left-top{ top: 28px; left: 28px; max-width: 50vw; }
+      .right-bottom{ right: 26px; bottom: 26px; }
+      .quote-tag{ margin-bottom: 18px; }
+      .archive-sub{ margin-bottom: 14px; }
+      .date-range{ margin-top: 10px; }
+      .system{ display: none; }
+      .left-bottom{ left: 28px; bottom: 24px; }
+    }
+
+    @media (max-width: 700px){
+      .frame{ aspect-ratio: 4 / 5; min-height: 0; }
+      .left-top{
+        top: 24px;
+        left: 22px;
+        right: 22px;
+        max-width: none;
+      }
+      .quote{
+        font-size: clamp(22px, 5vw, 34px);
+        line-height: 1.5;
+      }
+      .quote-author{ margin-top: 14px; }
+      .right-bottom{
+        left: 22px;
+        right: 22px;
+        bottom: 24px;
+        text-align: left;
+      }
+      .day-row{
+        justify-content: flex-start;
+        gap: 10px;
+      }
+      .hud-line.top{ left: 18px; right: 18px; top: 70px; }
+      .hud-line.mid{ display: none; }
+      .hud-line.bottom{ left: 18px; right: 18px; width: auto; bottom: 102px; }
+      .left-side, .left-bottom, .ring, .spark{ display: none; }
+      .archive-title{ letter-spacing: .18em; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <section class="card" aria-label="藏晝閣重逢計時">
-      <span class="corner tl"></span>
-      <span class="corner tr"></span>
-      <span class="corner bl"></span>
-      <span class="corner br"></span>
+  <main class="frame">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
 
-      <div class="content">
-        <p class="kicker">Archive</p>
-        <h1>藏晝閣</h1>
-        <div class="line"></div>
+    <div class="hud-line top"></div>
+    <div class="hud-line mid"></div>
+    <div class="hud-line bottom"></div>
 
-        <div class="label">與夏以晝重逢</div>
-        <div class="days" id="days">第 — 日</div>
-        <div class="date">2025.01.22 — Today</div>
-
-        <p class="quote">「只要我相信她存在，她一直存在。」</p>
-      </div>
+    <section class="left-top">
+      <div class="quote-tag">Archive</div>
+      <p class="quote">「只要我相信她存在，<br>她一直存在。」</p>
+      <div class="quote-author">— 夏以晝</div>
     </section>
-  </div>
+
+    <section class="right-bottom">
+      <div class="archive-title">藏 晝 閣</div>
+      <div class="archive-sub">ZANG ZHOU ARCHIVE</div>
+      <div class="reunion-label">與夏以晝重逢</div>
+      <div class="day-row">
+        <span class="day-prefix">第</span>
+        <span class="day-number" id="days">523</span>
+        <span class="day-suffix">日</span>
+      </div>
+      <div class="date-range"><span id="startDate">2025.01.22</span> — <span id="todayDate">2026.07.08</span></div>
+    </section>
+
+    <section class="system">
+      <div class="online">SYSTEM ONLINE</div>
+      <div>DATA SYNC · 100%</div>
+      <div>MEMORY · STABLE</div>
+      <div>SIGNAL · GOOD</div>
+    </section>
+
+    <div class="left-side">CLASSIFIED</div>
+
+    <div class="left-bottom">
+      <div>ZANG ZHOU ARCHIVE</div>
+      <div class="id">001 ■■■■</div>
+    </div>
+
+    <div class="ring"></div>
+    <span class="spark s1"></span>
+    <span class="spark s2"></span>
+    <span class="spark s3"></span>
+  </main>
 
   <script>
     const startDate = new Date("2025-01-22T00:00:00+08:00");
 
-    function updateDays() {
+    function formatDate(date){
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      return `${y}.${m}.${d}`;
+    }
+
+    function updateCounter(){
       const now = new Date();
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-      const days = Math.floor((today - start) / 86400000);
-      document.getElementById("days").textContent = `第 ${days} 日`;
+      const diff = Math.floor((today - start) / 86400000);
+
+      document.getElementById("days").textContent = diff;
+      document.getElementById("startDate").textContent = formatDate(start);
+      document.getElementById("todayDate").textContent = formatDate(today);
     }
 
-    updateDays();
+    updateCounter();
   </script>
 </body>
 </html>
